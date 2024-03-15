@@ -16,7 +16,7 @@ services:
     networks:
       - default
   litespeed:
-    image: ghcr.io/ndigitals/openlitespeed:1.7.19-lsphp83-node20
+    image: ghcr.io/ndigitals/openlitespeed:${OLS_VERSION}-${PHP_VERSION}
     container_name: litespeed
     env_file:
       - .env
@@ -37,13 +37,14 @@ services:
       TZ: ${TimeZone}
     networks:
       - default
-  phpmyadmin:
-    image: arm64v8/phpmyadmin:latest
+  adminer:
+    image: adminer:latest
     ports:
       - 8080:8080
       - 8443:8443
     environment:
-      DATABASE_HOST: mysql
+      ADMINER_DESIGN: "pepa-linha"
+      ADMINER_DEFAULT_SERVER: mysql
     restart: always
     networks:
       - default
